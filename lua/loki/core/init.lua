@@ -1,0 +1,5 @@
+require("loki.core.colorscheme")
+require("loki.core.keybinds")
+require("loki.core.options")
+require("loki.core.plugins")
+-- require("loki.core.plugins.coq")
