@@ -31,29 +31,29 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
     require('lspconfig')['lua_ls'].setup {
         capabilities = capabilities
     }
-    -- require('lspconfig')['gopls'].setup {
-    --     capabilities = capabilities
-    -- }
-    -- require('lspconfig')['gopls'].setup {
-    --     on_attach = on_attach,
-    --     capabilities = capabilities,
-    --     cmd = {"gopls"},
-    --     filetypes = { "go", "gomod", "gowork", "gotmpl" },
-    --     root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-    --     settings = {
-    --         gopls = {
-    --             completeUnimported = true,
-    --             usePlaceholders = true,
-    --             analyses = {
-    --                 unusedparams = true,
-    --             },
-    --         },
-    --     },
-    -- }
-    require('lspconfig')['eslint'].setup {
+    require('lspconfig')['gopls'].setup {
         capabilities = capabilities
     }
-    require('lspconfig')['tsserver'].setup {
+    require('lspconfig')['gopls'].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = {"gopls"},
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+        settings = {
+            gopls = {
+                completeUnimported = true,
+                usePlaceholders = true,
+                analyses = {
+                    unusedparams = true,
+                },
+            },
+        },
+    }
+    -- require('lspconfig')['eslint'].setup {
+    --     capabilities = capabilities
+    -- }
+    require('lspconfig')['ts_ls'].setup {
         capabilities = capabilities
     }
     require('lspconfig')['jsonls'].setup {
@@ -68,3 +68,4 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
     require('lspconfig')['emmet_ls'].setup {
         capabilities = capabilities
     }
+

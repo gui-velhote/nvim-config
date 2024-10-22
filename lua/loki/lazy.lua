@@ -13,59 +13,66 @@ if not vim.loop.fs_stat(lazypath) then
 
 	require("lazy").setup({
         -- colorscheme
-		{ "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", lazy = false, priority = 1000 },
-        -- {
-        --     "vhyrro/luarocks.nvim",
-        --     priority=1000,
-        --     config=true,
-        --     rocks = {'nvim-nio', 'mimetypes'}
-        -- },
-        -- {"nvim-neotest/nvim-nio"},
-
+        -- { "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", lazy = false, priority = 1000 },
+        { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 },
         -- LSP-Zero
         {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-		{ "neovim/nvim-lspconfig" },
+        { "neovim/nvim-lspconfig" },
         {'hrsh7th/cmp-nvim-lsp'},
         {'hrsh7th/nvim-cmp'},
         {'hrsh7th/cmp-buffer'},
         {'hrsh7th/cmp-path'},
         {'hrsh7th/cmp-nvim-lua'},
         {'hrsh7th/cmp-nvim-lsp'},
-        {'L3MON4D3/LuaSnip'}, 
-        {'L3MON4D3/LuaSnip'},
+        { "rafamadriz/friendly-snippets" },
+        { "stevearc/vim-vscode-snippets" },
+        {
+          current = {buffer_index = true},
+          'L3MON4D3/LuaSnip',
+          dependencies = { "rafamadriz/friendly-snippets" },
+        },
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
-
-        --Autocompletion with coq
-		-- { 
-  --           "ms-jpq/coq_nvim",
-  --           branch = "coq" 
-  --       },
-		-- {
-  --           "ms-jpq/coq.artifacts",
-  --           branch = "artifacts" 
-  --       },
-		-- {
-  --           "ms-jpq/coq.thirdparty",
-  --           branch = "3p" 
-  --       },
-  --
         -- syntax highlighting
-		{
+		    {
             "nvim-treesitter/nvim-treesitter",
             lazy = false
         },
-        
+        -- surrond
+        {
+          "kylechui/nvim-surround",
+          version = "*", -- Use for stability; omit to use `main` branch for the latest features
+          event = "VeryLazy",
+          config = function()
+              require("nvim-surround").setup({
+                  -- Configuration here, or leave empty to use defaults
+              })
+          end
+        },
         -- autopairs
-		{
+		    {
             "windwp/nvim-autopairs",
             event = "InsertEnter",
             opts = {}
         },
-
+        -- autotag
+        {
+          "windwp/nvim-ts-autotag",
+          lazy = false
+        },
+        {
+          -- Chartoggle
+        {
+          'saifulapm/chartoggle.nvim',
+          opts = {
+            leader = ' ', -- you can use any key as Leader
+            keys = {',', ';' } -- Which keys will be toggle end of the line
+          },
+          keys = {' ,', ' ;'} -- Lazy loaded
+}
+        },
         -- plenary
         "nvim-lua/plenary.nvim",
-        
         -- web-tools
         {
             "ray-x/web-tools.nvim",
@@ -84,7 +91,7 @@ if not vim.loop.fs_stat(lazypath) then
                             html = { 'prettier', '--parser', 'html' }
                         }
                     }
-                }) 
+                })
             end
         },
 
@@ -93,31 +100,17 @@ if not vim.loop.fs_stat(lazypath) then
             "nvim-lualine/lualine.nvim",
             dependencies = { "nvim-tree/nvim-web-devicons" }
         },
-
-        -- rest html
-        -- {
-        --     "rest-nvim/rest.nvim",
-        --     dependencies = { {"nvim-lua/plenary.nvim"} },
-        --     lazy = false,
-        --     ft = 'http',
-        --     config = function ()
-        --         require("rest-nvim").setup({})
-        --     end
-        -- },
-
         -- telescope
         {
             'nvim-telescope/telescope.nvim',
             dependencies = { 'nvim-lua/plenary.nvim' }
         },
-        
         -- nvim-tree
         {
             "nvim-tree/nvim-tree.lua",
             dependencies = { "nvim-tree/nvim-web-devicons" },
             lazy = false
         },
-        
         -- comments
         {
             'numToStr/Comment.nvim',
@@ -151,6 +144,12 @@ if not vim.loop.fs_stat(lazypath) then
                   -- …etc.
             },
             version = '^1.0.0', -- optional: only update when a new 1.x version is released
-      },
+        },
+        {
+          "iamcco/markdown-preview.nvim",
+          cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+          ft = { "markdown" },
+          build = function() vim.fn["mkdp#util#install"]() end,
+        },
 })
 

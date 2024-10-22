@@ -50,6 +50,7 @@ vim.keymap.set("n", "<leader>sx", vim.cmd.q)
 vim.keymap.set("n", "<leader>tp", vim.cmd.BufferPrevious)
 vim.keymap.set("n", "<leader>tn", vim.cmd.BufferNext)
 vim.keymap.set("n", "<leader>tx", vim.cmd.BufferClose)
+vim.keymap.set("n", "<leader>tr", vim.cmd.BufferRestore)
 
 vim.keymap.set("n", "<leader>t1", "<Cmd>BufferGoto 1<CR>")
 vim.keymap.set("n", "<leader>t2", "<Cmd>BufferGoto 2<CR>")
@@ -60,6 +61,9 @@ vim.keymap.set("n", "<leader>t6", "<Cmd>BufferGoto 6<CR>")
 vim.keymap.set("n", "<leader>t7", "<Cmd>BufferGoto 7<CR>")
 vim.keymap.set("n", "<leader>t8", "<Cmd>BufferGoto 8<CR>")
 vim.keymap.set("n", "<leader>t9", "<Cmd>BufferGoto 9<CR>")
+vim.keymap.set("n", "<leader>t0", "<Cmd>BufferLast<CR>")
+
+
 
 -- rest
 vim.keymap.set("n", "<leader>gr", "<Plug>RestNvim")
