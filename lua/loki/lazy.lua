@@ -130,6 +130,9 @@ if not vim.loop.fs_stat(lazypath) then
             end,
             dependencies = { {'nvim-tree/nvim-web-devicons'}}
         },
+        {
+          'akinsho/git-conflict.nvim', version = "*", config=true
+        },
         "aserowy/tmux.nvim",
         {'romgrk/barbar.nvim',
             dependencies = {
