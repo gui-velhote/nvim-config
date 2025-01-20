@@ -19,7 +19,7 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
         'ts_ls',
-        -- 'eslint',
+        'eslint',
         'rust_analyzer',
         'emmet_ls',
         'volar',

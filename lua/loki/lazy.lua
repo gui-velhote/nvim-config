@@ -15,6 +15,8 @@ if not vim.loop.fs_stat(lazypath) then
         -- colorscheme
         -- { "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", lazy = false, priority = 1000 },
         { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 },
+        {'rose-pine/neovim', name="rose-pine", lazy=false, priority=1000},
+        {'shaunsingh/moonlight.nvim', name="moonlight", lazy=false, priority=1000},
         -- LSP-Zero
         {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
         { "neovim/nvim-lspconfig" },
@@ -38,6 +40,8 @@ if not vim.loop.fs_stat(lazypath) then
             "nvim-treesitter/nvim-treesitter",
             lazy = false
         },
+        {'posva/vim-vue'},
+        {'cakebaker/scss-syntax.vim'},
         -- surrond
         {
           "kylechui/nvim-surround",
