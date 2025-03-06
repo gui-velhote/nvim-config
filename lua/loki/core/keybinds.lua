@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 
 local telescope = require("telescope.builtin")
+local popup = require("plenary.popup")
 
 -- Keymaps
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -29,6 +30,65 @@ end)
 vim.keymap.set("n", "<leader>ga", function ()
     local message = vim.fn.input("Message > ")
     vim.cmd("Git commit -am \"" .. message .. "\"")
+end)
+vim.keymap.set("n", "<leader>gs", function()
+    local branchName = vim.fn.input("New branch name: ")
+    vim.cmd("Git checkout -b " .. branchName)
+end)
+vim.keymap.set("n", "<leader>gg", function()
+    local branchName = vim.fn.input("Delete branch: ")
+    vim.cmd("Git branch -D " .. branchName)
+end)
+vim.keymap.set("n", "<leader>gu", function()
+    local branchName = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+    vim.cmd("Git push origin ".. branchName)
+end)
+vim.keymap.set("n", "<leader>gy", function()
+    local branchName = vim.fn.system("git branch -l")
+
+    local height = 20
+    local width = 60
+    local borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
+
+    local cb = function(_, sel)
+    end
+
+    local Win_id
+    Win_id = popup.create(t, {
+      title = "Teste Git",
+      line = math.floor(((vim.o.lines - height) / 2) - 1),
+      col = math.floor((vim.o.lines - width) / 2),
+      minwidth = width,
+      minheight = height,
+      berderchars = borderchars,
+      callback = cb
+    })
+
+    local bufnr = vim.api.nvim_win_get_buf(Win_id)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "q", "<cmd>lua CloseMenu()<CR>", {silent=false})
+
+end)
+vim.keymap.set("n", "<leader>gm", function()
+    local height = 20
+    local width = 60
+    local borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
+
+    local cb = function(_, sel)
+    end
+
+    local Win_id
+    Win_id = popup.create({}, {
+      title = "Teste Git",
+      line = math.floor(((vim.o.lines - height) / 2) - 1),
+      col = math.floor((vim.o.lines - width) / 2),
+      minwidth = width,
+      minheight = height,
+      berderchars = borderchars,
+      callback = cb
+    })
+
+    local bufnr = vim.api.nvim_win_get_buf(Win_id)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "q", "<cmd>lua CloseMenu()<CR>", {silent=false})
 end)
 
 -- terminal
@@ -65,10 +125,11 @@ vim.keymap.set("n", "<leader>sn", "<C-w>_<CR>")
 vim.keymap.set("n", "<leader>sc", "<C-w>o<CR>")
 
 -- Move
--- vim.keymap.set("n", "<C-S-H>", "<C-w>H<CR>")
--- vim.keymap.set("n", "<C-S-J>", "<C-w>J<CR>")
--- vim.keymap.set("n", "<C-S-K>", "<C-w>K<CR>")
--- vim.keymap.set("n", "<C-S-L>", "<C-w>L<CR>")
+vim.keymap.set("n", "<leader>ch", "<C-w>H<CR>")
+vim.keymap.set("n", "<leader>cj", "<C-w>J<CR>")
+vim.keymap.set("n", "<leader>ck", "<C-w>K<CR>")
+vim.keymap.set("n", "<leader>cl", "<C-w>L<CR>")
+vim.keymap.set("n", "<leader>cm", "<C-w>R<CR>")
 
 -- tabs
 vim.keymap.set("n", "<leader>tp", vim.cmd.BufferPrevious)
@@ -95,3 +156,7 @@ vim.keymap.set("n", "<leader>rs", "<cmd>BrowserSync<CR>")
 vim.keymap.set("n", "<leader>rt", "<cmd>BrowserStop<CR>")
 vim.keymap.set("n", "<leader>rp", "<cmd>BrowserPreview<CR>")
 
+-- compilers
+vim.keymap.set("n", "<leader>co", "<cmd>CompilerOpen<CR>", {noremap=true, silent=true})
+vim.keymap.set("n", "<leader>cr", "<cmd>CompilerToggleResults<CR>", {noremap=true, silent=true})
+vim.keymap.set("n", "<leader>cp", "<cmd>CompilerStop<CR>", {noremap=true, silent=true})

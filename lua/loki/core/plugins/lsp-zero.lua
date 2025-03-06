@@ -23,11 +23,18 @@ require('mason-lspconfig').setup({
         'rust_analyzer',
         'emmet_ls',
         'volar',
+        'bashls',
+        --'pylyzer',
         -- 'gopls',
     },
     handlers = {
         lsp_zero.default_setup,
     },
+})
+
+
+lspconfig.bashls.setup({
+  filetypes = {'sh', 'bash'},
 })
 
 lspconfig.volar.setup({
