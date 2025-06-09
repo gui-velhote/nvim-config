@@ -2,6 +2,7 @@ vim.g.mapleader = " "
 
 local telescope = require("telescope.builtin")
 local popup = require("plenary.popup")
+local testes = require("loki.core.plugins.overseer")
 
 -- Keymaps
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -25,7 +26,7 @@ vim.keymap.set("n", "<leader>pq", telescope.git_stash, {})
 -- fugitive
 vim.keymap.set("n", "<leader>gf", vim.cmd.Git)
 vim.keymap.set("n", "<leader>gd", function ()
-    vim.cmd("Gdiff")
+    vim.cmd("Gdiff HEAD")
 end)
 vim.keymap.set("n", "<leader>ga", function ()
     local message = vim.fn.input("Message > ")
@@ -88,7 +89,12 @@ vim.keymap.set("n", "<leader>gm", function()
     })
 
     local bufnr = vim.api.nvim_win_get_buf(Win_id)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "q", "<cmd>lua CloseMenu()<CR>", {silent=false})
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "q", "<cmd>q<CR>", {silent=false})
+end)
+
+vim.keymap.set("n", "<leader>gl", function()
+  local file = vim.api.nvim_buf_get_name(0)
+  vim.cmd('Git log ' .. file)
 end)
 
 -- terminal
@@ -160,3 +166,8 @@ vim.keymap.set("n", "<leader>rp", "<cmd>BrowserPreview<CR>")
 vim.keymap.set("n", "<leader>co", "<cmd>CompilerOpen<CR>", {noremap=true, silent=true})
 vim.keymap.set("n", "<leader>cr", "<cmd>CompilerToggleResults<CR>", {noremap=true, silent=true})
 vim.keymap.set("n", "<leader>cp", "<cmd>CompilerStop<CR>", {noremap=true, silent=true})
+
+vim.keymap.set("n", "<leader>cj", testes.rodarTeste)
+
+-- ctags
+vim.keymap.set("n", "<leader>jt", "<C-]>")

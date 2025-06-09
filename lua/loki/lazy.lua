@@ -18,8 +18,9 @@ if not vim.loop.fs_stat(lazypath) then
         {'rose-pine/neovim', name="rose-pine", lazy=false, priority=1000},
         {'shaunsingh/moonlight.nvim', name="moonlight", lazy=false, priority=1000},
         -- LSP-Zero
-        {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-        { "neovim/nvim-lspconfig" },
+        {'VonHeikemen/lsp-zero.nvim'},
+        {'nvim-java/nvim-java', lazy=false},
+        {"neovim/nvim-lspconfig", tag="v1.8.0", pin=true},
         {'hrsh7th/cmp-nvim-lsp'},
         {'hrsh7th/nvim-cmp'},
         {'hrsh7th/cmp-buffer'},
@@ -34,8 +35,18 @@ if not vim.loop.fs_stat(lazypath) then
           'L3MON4D3/LuaSnip',
           dependencies = { "rafamadriz/friendly-snippets" },
         },
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
+        {"mason-org/mason.nvim", tag="v1.11.0", pin=true},
+        {"mason-org/mason-lspconfig.nvim", tag="v1.32.0", pin=true},
+        --ctags
+        {
+          'delphinus/cmp-ctags',
+          lazy=false
+        },
+        -- {
+        --   'wsdjeg/ctags.nvim',
+        --   dependencies={'wsdjeg/job.nvim'},
+        --   lazy=false
+        -- },
         -- syntax highlighting
 		    {
             "nvim-treesitter/nvim-treesitter",
@@ -83,6 +94,10 @@ if not vim.loop.fs_stat(lazypath) then
           "Zeioth/compiler.nvim",
           cmd = {"CompilerOpen", "CompilerToggleResults", "CompilerRedo"},
           dependencies = { "stevearc/overseer.nvim", "nvim-telescope/telescope.nvim" },
+          opts = {},
+        },
+        {
+          'stevearc/overseer.nvim',
           opts = {},
         },
         {

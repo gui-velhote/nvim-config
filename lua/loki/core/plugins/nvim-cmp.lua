@@ -18,10 +18,21 @@ cmp.setup({
         { name = 'nvim_lsp' },
         { name = 'look' },
         { name = 'buffer' },
+        {
+          name = 'ctags',
+          option = {
+            executable = "ctags",
+            trigger_characters = {"."},
+            trigger_characters_ft = {},
+          }
+        }
     }
 })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    require('lspconfig')['harper_ls'].setup {
+        capabilities = capabilities
+    }
     require('lspconfig')['pyright'].setup {
         capabilities = capabilities
     }
