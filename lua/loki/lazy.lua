@@ -194,5 +194,14 @@ if not vim.loop.fs_stat(lazypath) then
           ft = { "markdown" },
           build = function() vim.fn["mkdp#util#install"]() end,
         },
+        {
+          'javiorfo/nvim-wildcat',
+          lazy = true,
+          cmd = { "WildcatBuild", "WildcatRun", "WildcatUp", "WildcatServer" },
+          dependencies = { 'javiorfo/nvim-popcorn', 'javiorfo/nvim-spinetta' },
+          build = function()
+            require 'wildcat.build'.build()
+          end
+        },
 })
 
