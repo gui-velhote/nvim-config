@@ -18,15 +18,19 @@ if not vim.loop.fs_stat(lazypath) then
         {'rose-pine/neovim', name="rose-pine", lazy=false, priority=1000},
         {'shaunsingh/moonlight.nvim', name="moonlight", lazy=false, priority=1000},
         -- LSP-Zero
-        {'VonHeikemen/lsp-zero.nvim'},
+        -- {'VonHeikemen/lsp-zero.nvim'},
         {'nvim-java/nvim-java', lazy=false},
-        {"neovim/nvim-lspconfig", tag="v1.8.0", pin=true},
+        -- {"neovim/nvim-lspconfig", tag="v1.8.0", pin=true},
+        {
+          "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
+          lazy = false, -- REQUIRED: tell lazy.nvim to start this plugin at startup
+        },
         {'hrsh7th/cmp-nvim-lsp'},
-        {'hrsh7th/nvim-cmp'},
         {'hrsh7th/cmp-buffer'},
         {'hrsh7th/cmp-path'},
         {'hrsh7th/cmp-nvim-lua'},
         {'hrsh7th/cmp-nvim-lsp'},
+        {'hrsh7th/nvim-cmp'},
         { "rafamadriz/friendly-snippets" },
         { "stevearc/vim-vscode-snippets" },
         { "mfussenegger/nvim-jdtls" },
@@ -35,18 +39,18 @@ if not vim.loop.fs_stat(lazypath) then
           'L3MON4D3/LuaSnip',
           dependencies = { "rafamadriz/friendly-snippets" },
         },
-        {"mason-org/mason.nvim", tag="v1.11.0", pin=true},
-        {"mason-org/mason-lspconfig.nvim", tag="v1.32.0", pin=true},
+        {"mason-org/mason.nvim", pin=true},
+        {"mason-org/mason-lspconfig.nvim", pin=true},
         --ctags
         {
           'delphinus/cmp-ctags',
           lazy=false
         },
-        -- {
-        --   'wsdjeg/ctags.nvim',
-        --   dependencies={'wsdjeg/job.nvim'},
-        --   lazy=false
-        -- },
+        {
+          'wsdjeg/ctags.nvim',
+          dependencies={'wsdjeg/job.nvim'},
+          lazy=false
+        },
         -- syntax highlighting
 		    {
             "nvim-treesitter/nvim-treesitter",
@@ -76,16 +80,15 @@ if not vim.loop.fs_stat(lazypath) then
           "windwp/nvim-ts-autotag",
           lazy = false
         },
+        -- commasemi
         {
-          -- Chartoggle
-        {
-          'saifulapm/chartoggle.nvim',
+          "saifulapm/commasemi.nvim",
+          lazy = false,
           opts = {
-            leader = ' ', -- you can use any key as Leader
-            keys = {',', ';' } -- Which keys will be toggle end of the line
-          },
-          keys = {' ,', ' ;'} -- Lazy loaded
-}
+            leader = " ",
+            keymaps = true,
+            commands = true
+          }
         },
         -- plenary
         "nvim-lua/plenary.nvim",
@@ -189,10 +192,8 @@ if not vim.loop.fs_stat(lazypath) then
             version = '^1.0.0', -- optional: only update when a new 1.x version is released
         },
         {
-          "iamcco/markdown-preview.nvim",
-          cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-          ft = { "markdown" },
-          build = function() vim.fn["mkdp#util#install"]() end,
+          "OXY2DEV/markview.nvim",
+          lazy = false,
         },
         {
           'javiorfo/nvim-wildcat',
@@ -203,5 +204,5 @@ if not vim.loop.fs_stat(lazypath) then
             require 'wildcat.build'.build()
           end
         },
-})
+      })
 

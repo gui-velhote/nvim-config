@@ -30,22 +30,34 @@ cmp.setup({
 })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-    require('lspconfig')['harper_ls'].setup {
+    vim.lsp.config('harper_ls', {
         capabilities = capabilities
-    }
-    require('lspconfig')['pyright'].setup {
+    })
+    vim.lsp.config('pyright', {
         capabilities = capabilities
-    }
-    require('lspconfig')['rust_analyzer'].setup {
+    })
+    vim.lsp.config('rust_analyzer', {
         capabilities = capabilities
-    }
-    require('lspconfig')['lua_ls'].setup {
+    })
+    vim.lsp.config('lua_ls', {
+        cmd = { 'lua-language-server' },
+        filetypes = { 'lua' },
+        settings = {
+          Lua = {
+            runtime = {
+              version = 'LuaJIT',
+            }
+          }
+        },
         capabilities = capabilities
-    }
-    require('lspconfig')['gopls'].setup {
+    })
+    -- vim.lsp.config('stylua', {
+    --     capabilities = capabilities
+    -- })
+    vim.lsp.config('gopls', {
         capabilities = capabilities
-    }
-    require('lspconfig')['gopls'].setup {
+    })
+    vim.lsp.config('gopls', {
         on_attach = on_attach,
         capabilities = capabilities,
         cmd = {"gopls"},
@@ -60,23 +72,48 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
                 },
             },
         },
-    }
+    })
     -- require('lspconfig')['eslint'].setup {
     --     capabilities = capabilities
     -- }
-    require('lspconfig')['ts_ls'].setup {
+    vim.lsp.config('eslint', {
+        capabilities = capabilities,
+        filetypes = {'js'}
+    })
+    vim.lsp.config('ts_ls', {
         capabilities = capabilities
-    }
-    require('lspconfig')['jsonls'].setup {
+    })
+    vim.lsp.config('jsonls', {
         capabilities = capabilities
-    }
+    })
     -- require('lspconfig')['angularls'].setup {
     --     capabilities = capabilities
     -- }
-    require('lspconfig')['html'].setup {
+    -- vim.lsp.config('html', {
+    --     capabilities = capabilities
+    -- })
+    vim.lsp.config('emmet_ls', {
         capabilities = capabilities
-    }
-    require('lspconfig')['emmet_ls'].setup {
-        capabilities = capabilities
-    }
+    })
+    vim.lsp.config('html', {
+      capabilities = capabilities,
+      filetypes = {'html', 'jsp'}
+    })
 
+    vim.lsp.config('java_language_server', {
+        capabilities = capabilities
+    })
+
+    vim.lsp.enable('ts_ls')
+    vim.lsp.enable('harper_ls')
+    vim.lsp.enable('pyright')
+    vim.lsp.enable('rust_analyzer')
+    -- vim.lsp.enable('stylua')
+    vim.lsp.enable('lua_ls')
+    vim.lsp.enable('gopls')
+    vim.lsp.enable('jsonls')
+    vim.lsp.enable('html')
+    vim.lsp.enable('emmet_ls')
+    vim.lsp.enable('html')
+    vim.lsp.enable('eslint')
+    vim.lsp.enable('java_language_server')
