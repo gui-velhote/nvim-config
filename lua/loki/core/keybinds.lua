@@ -3,9 +3,14 @@ vim.g.mapleader = " "
 local telescope = require("telescope.builtin")
 local popup = require("plenary.popup")
 local testes = require("loki.core.plugins.overseer")
+local harpoon_mark = require("harpoon.mark")
+local harpoon_ui = require("harpoon.ui")
 
 -- Keymaps
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
+-- diagnostics
+vim.keymap.set("n", "<C-i>", vim.diagnostic.open_float, {})
 
 -- move things arround
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -171,3 +176,9 @@ vim.keymap.set("n", "<leader>cj", testes.rodarTeste)
 
 -- ctags
 vim.keymap.set("n", "<leader>jt", "<C-]>")
+
+-- harpoon
+vim.keymap.set("n", "<leader>ha", harpoon_mark.add_file)
+vim.keymap.set("n", "<leader>hf", harpoon_ui.toggle_quick_menu)
+vim.keymap.set("n", "<leader>hj", harpoon_ui.nav_next)
+vim.keymap.set("n", "<leader>hk", harpoon_ui.nav_prev)

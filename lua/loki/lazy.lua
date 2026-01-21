@@ -17,9 +17,33 @@ if not vim.loop.fs_stat(lazypath) then
         { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 },
         {'rose-pine/neovim', name="rose-pine", lazy=false, priority=1000},
         {'shaunsingh/moonlight.nvim', name="moonlight", lazy=false, priority=1000},
+        {
+          "ellisonleao/gruvbox.nvim",
+          priority = 1000,
+          config = true,
+        },
+        {
+          "xiyaowong/transparent.nvim",
+          lazy = false,
+          config = function()
+            require("transparent").setup({
+              groups = {
+                'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
+                'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
+                'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
+                'SignColumn', 'CursorLine', 'CursorLineNr', 'StatusLine', 'StatusLineNC',
+                'EndOfBuffer',
+              },
+              extra_groups = {},
+              exclude_groups = {},
+              on_clear = function() end,
+            })
+            vim.cmd("TransparentEnable")
+          end
+        },
         -- LSP-Zero
         -- {'VonHeikemen/lsp-zero.nvim'},
-        {'nvim-java/nvim-java', lazy=false},
+        -- {'nvim-java/nvim-java', lazy=false},
         -- {"neovim/nvim-lspconfig", tag="v1.8.0", pin=true},
         {
           "neovim/nvim-lspconfig", -- REQUIRED: for native Neovim LSP integration
@@ -29,7 +53,6 @@ if not vim.loop.fs_stat(lazypath) then
         {'hrsh7th/cmp-buffer'},
         {'hrsh7th/cmp-path'},
         {'hrsh7th/cmp-nvim-lua'},
-        {'hrsh7th/cmp-nvim-lsp'},
         {'hrsh7th/nvim-cmp'},
         { "rafamadriz/friendly-snippets" },
         { "stevearc/vim-vscode-snippets" },
@@ -91,7 +114,8 @@ if not vim.loop.fs_stat(lazypath) then
           }
         },
         -- plenary
-        "nvim-lua/plenary.nvim",
+        {"nvim-lua/plenary.nvim"},
+        {'ThePrimeagen/harpoon'},
         -- Compiler
         {
           "Zeioth/compiler.nvim",
@@ -152,7 +176,10 @@ if not vim.loop.fs_stat(lazypath) then
         {
             "nvim-tree/nvim-tree.lua",
             dependencies = { "nvim-tree/nvim-web-devicons" },
-            lazy = false
+            lazy = false,
+            config = function()
+              require('nvim-tree').setup({})
+            end
         },
         -- comments
         {
@@ -199,10 +226,22 @@ if not vim.loop.fs_stat(lazypath) then
           'javiorfo/nvim-wildcat',
           lazy = true,
           cmd = { "WildcatBuild", "WildcatRun", "WildcatUp", "WildcatServer" },
+          ft = { "java" },
+          event = { "BufReadPost pom.xml", "BufReadPost build.gradle" },
           dependencies = { 'javiorfo/nvim-popcorn', 'javiorfo/nvim-spinetta' },
-          build = function()
-            require 'wildcat.build'.build()
-          end
+          opts = {
+            console_size = 15,
+            default_server = "tomcat",
+            build_tool = "maven",
+            java_home = "/usr/lib/jvm/java-8-openjdk",
+            tomcat = {
+              path = "/home/gvelhote/tomcat/apache-tomcat-8.5.99",
+              app_base = "webapps"
+            }
+          }
+          -- build = function()
+          --   require 'wildcat.build'.build()
+          -- end
         },
       })
 
