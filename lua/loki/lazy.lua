@@ -41,6 +41,25 @@ if not vim.loop.fs_stat(lazypath) then
             vim.cmd("TransparentEnable")
           end
         },
+        -- File explorer
+        {
+          'stevearc/oil.nvim',
+          ---@module 'oil'
+          ---@type oil.SetupOpts
+          opts = {},
+          -- Optional dependencies
+          dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+          -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+          -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+          lazy = false,
+        },
+        {
+          'refractalize/oil-git-status.nvim',
+          dependencies = {
+            'stevearc/oil.nvim',
+          },
+          config = true
+        },
         -- LSP-Zero
         -- {'VonHeikemen/lsp-zero.nvim'},
         -- {'nvim-java/nvim-java', lazy=false},
@@ -56,7 +75,7 @@ if not vim.loop.fs_stat(lazypath) then
         {'hrsh7th/nvim-cmp'},
         { "rafamadriz/friendly-snippets" },
         { "stevearc/vim-vscode-snippets" },
-        { "mfussenegger/nvim-jdtls" },
+        { "mfussenegger/nvim-jdtls", lazy=false },
         {
           current = {buffer_index = true},
           'L3MON4D3/LuaSnip',
@@ -64,6 +83,21 @@ if not vim.loop.fs_stat(lazypath) then
         },
         {"mason-org/mason.nvim", pin=true},
         {"mason-org/mason-lspconfig.nvim", pin=true},
+        {
+          "ErichDonGubler/lsp_lines.nvim",
+          lazy = false,
+        },
+        -- Project managers
+        {
+          "Abstract-IDE/penvim",
+          lazy=false,
+        },
+        { 'cljoly/telescope-repo.nvim' },
+        {
+          'nvim-telescope/telescope.nvim',
+          dependencies = {'nvim-lua/plenary.nvim'}
+        },
+        {"natecraddock/workspaces.nvim"},
         --ctags
         {
           'delphinus/cmp-ctags',
@@ -173,14 +207,14 @@ if not vim.loop.fs_stat(lazypath) then
             dependencies = { 'nvim-lua/plenary.nvim' }
         },
         -- nvim-tree
-        {
-            "nvim-tree/nvim-tree.lua",
-            dependencies = { "nvim-tree/nvim-web-devicons" },
-            lazy = false,
-            config = function()
-              require('nvim-tree').setup({})
-            end
-        },
+        -- {
+        --     "nvim-tree/nvim-tree.lua",
+        --     dependencies = { "nvim-tree/nvim-web-devicons" },
+        --     lazy = false,
+        --     config = function()
+        --       require('nvim-tree').setup({})
+        --     end
+        -- },
         -- comments
         {
             'numToStr/Comment.nvim',
@@ -190,34 +224,33 @@ if not vim.loop.fs_stat(lazypath) then
             lazy = false,
         },
         "tpope/vim-fugitive",
+        -- {
+        --     'nvimdev/dashboard-nvim',
+        --     event = 'VimEnter',
+        --     dependencies = { {'nvim-tree/nvim-web-devicons'}}
+        -- },
         {
-            'nvimdev/dashboard-nvim',
-            event = 'VimEnter',
-            config = function()
-                require('dashboard').setup {
-              -- config
-                }
-            end,
-            dependencies = { {'nvim-tree/nvim-web-devicons'}}
+          'goolord/alpha-nvim',
+          dependencies = { 'nvim-mini/mini.icons'}
         },
         {
           'akinsho/git-conflict.nvim', version = "*", config=true
         },
         "aserowy/tmux.nvim",
-        {'romgrk/barbar.nvim',
-            dependencies = {
-                'lewis6991/gitsigns.nvim',
-                'nvim-tree/nvim-web-devicons',
-            },
-            init = function() vim.g.barbar_auto_setup = false end,
-            opts = {
-                  -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-                  -- animation = true,
-                  -- insert_at_start = true,
-                  -- …etc.
-            },
-            version = '^1.0.0', -- optional: only update when a new 1.x version is released
-        },
+        -- {'romgrk/barbar.nvim',
+        --     dependencies = {
+        --         'lewis6991/gitsigns.nvim',
+        --         'nvim-tree/nvim-web-devicons',
+        --     },
+        --     init = function() vim.g.barbar_auto_setup = false end,
+        --     opts = {
+        --           -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+        --           -- animation = true,
+        --           -- insert_at_start = true,
+        --           -- …etc.
+        --     },
+        --     version = '^1.0.0', -- optional: only update when a new 1.x version is released
+        -- },
         {
           "OXY2DEV/markview.nvim",
           lazy = false,
@@ -225,20 +258,10 @@ if not vim.loop.fs_stat(lazypath) then
         {
           'javiorfo/nvim-wildcat',
           lazy = true,
-          cmd = { "WildcatBuild", "WildcatRun", "WildcatUp", "WildcatServer" },
+          cmd = { "WildcatBuild", "WildcatRun", "WildcatUp", "WildcatServer", "WildcatToggle" },
           ft = { "java" },
           event = { "BufReadPost pom.xml", "BufReadPost build.gradle" },
           dependencies = { 'javiorfo/nvim-popcorn', 'javiorfo/nvim-spinetta' },
-          opts = {
-            console_size = 15,
-            default_server = "tomcat",
-            build_tool = "maven",
-            java_home = "/usr/lib/jvm/java-8-openjdk",
-            tomcat = {
-              path = "/home/gvelhote/tomcat/apache-tomcat-8.5.99",
-              app_base = "webapps"
-            }
-          }
           -- build = function()
           --   require 'wildcat.build'.build()
           -- end

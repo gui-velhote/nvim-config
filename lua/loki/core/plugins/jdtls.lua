@@ -4,14 +4,27 @@ local config_dir = jdtls_dir .. '/config_linux'
 local plugins_dir = jdtls_dir .. '/plugins'
 local path_to_jar = plugins_dir .. '/org.eclipse.equinox.launcher_1.7.100.v20251111-0406.jar'
 
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+-- local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+local current_directory = vim.api.nvim_buf_get_name(0);
+local project_name = vim.fn.fnamemodify(current_directory, ':p:h:t')
 local workspace_dir = vim.fn.stdpath('data') .. '/site/java/workspace-root' .. project_name
 os.execute('mkdir' .. workspace_dir)
+
+local java_projects_directories = {
+  vim.fn.expand("~") .. '/usp/tomcat',
+  vim.fn.expand("~") .. '/usp/spring'
+}
+
+if not vim.tbl_contains(java_projects_directories, vim.fn.fnamemodify(current_directory, ':h')) then
+  return
+end
+
+print("starting jdtls")
 
 local config = {
   cmd = {
     '/usr/lib/jvm/java-25-openjdk/bin/java',
-    -- '-javaagent:/home/gvelhote/.local/share/nvim/mason/packages/jdtls/lombok.jar', -- Must be before jdtls jar
+    '-javaagent:/home/gvelhote/.local/share/nvim/mason/packages/jdtls/lombok.jar', -- Must be before jdtls jar
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',

@@ -1,13 +1,30 @@
 vim.g.mapleader = " "
 
 local telescope = require("telescope.builtin")
+local repo = require("telescope").extensions.repo
+local workspaces = require("workspaces")
 local popup = require("plenary.popup")
 local testes = require("loki.core.plugins.overseer")
 local harpoon_mark = require("harpoon.mark")
 local harpoon_ui = require("harpoon.ui")
+local lines = require("lsp_lines")
 
 -- Keymaps
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- file manager
+vim.keymap.set("n", "<leader>pv", vim.cmd.Oil)
+
+-- workspaces
+vim.keymap.set("n", "<leader>wf", "<cmd>Telescope workspaces<CR>", {})
+vim.keymap.set("n", "<leader>ws", workspaces.sync_dirs, {})
+-- vim.keymap.set("n", "<leader>wa", function ()
+--   local path = vim.fn.getcwd();
+--    workspaces.add_dir(path)
+-- end)
+-- vim.keymap.set("n", "<leader>wr", function ()
+--   local path = vim.fn.getcwd();
+--    workspaces.remove_dir(path)
+-- end)
 
 -- diagnostics
 vim.keymap.set("n", "<C-i>", vim.diagnostic.open_float, {})
@@ -27,6 +44,7 @@ end)
 vim.keymap.set("n", "<leader>pd", telescope.git_branches, {})
 vim.keymap.set("n", "<leader>pa", telescope.git_commits, {})
 vim.keymap.set("n", "<leader>pq", telescope.git_stash, {})
+vim.keymap.set("n", "<leader>pg", repo.list, {})
 
 -- fugitive
 vim.keymap.set("n", "<leader>gf", vim.cmd.Git)
@@ -172,13 +190,21 @@ vim.keymap.set("n", "<leader>co", "<cmd>CompilerOpen<CR>", {noremap=true, silent
 vim.keymap.set("n", "<leader>cr", "<cmd>CompilerToggleResults<CR>", {noremap=true, silent=true})
 vim.keymap.set("n", "<leader>cp", "<cmd>CompilerStop<CR>", {noremap=true, silent=true})
 
-vim.keymap.set("n", "<leader>cj", testes.rodarTeste)
+vim.keymap.set("n", "<leader>or", testes.rodarTeste)
 
 -- ctags
 vim.keymap.set("n", "<leader>jt", "<C-]>")
 
 -- harpoon
 vim.keymap.set("n", "<leader>ha", harpoon_mark.add_file)
-vim.keymap.set("n", "<leader>hf", harpoon_ui.toggle_quick_menu)
+-- vim.keymap.set("n", "<leader>hf", harpoon_ui.toggle_quick_menu)
+vim.keymap.set("n", "<leader>hf", "<cmd>Telescope harpoon marks<CR>")
 vim.keymap.set("n", "<leader>hj", harpoon_ui.nav_next)
 vim.keymap.set("n", "<leader>hk", harpoon_ui.nav_prev)
+
+-- wildcat
+vim.keymap.set("n", "<leader>ot", "<cmd>WildcatRun<CR>")
+vim.keymap.set("n", "<leader>op", "<cmd>WildcatDown<CR>")
+
+-- lines
+vim.keymap.set("n", "<leader>vl", lines.toggle, {desc = "Toggle lsp_lines"})
