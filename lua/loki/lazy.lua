@@ -13,7 +13,8 @@ if not vim.loop.fs_stat(lazypath) then
 
 	require("lazy").setup({
         -- colorscheme
-        -- { "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", lazy = false, priority = 1000 },
+        { "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", lazy = false, priority = 1000 },
+        { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
         { "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 },
         {'rose-pine/neovim', name="rose-pine", lazy=false, priority=1000},
         {'shaunsingh/moonlight.nvim', name="moonlight", lazy=false, priority=1000},

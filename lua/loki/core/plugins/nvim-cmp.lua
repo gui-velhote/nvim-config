@@ -77,15 +77,15 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
     -- vim.lsp.config('stylua', {
     --     capabilities = capabilities
     -- })
+    -- vim.lsp.config('gopls', {
+    --     capabilities = capabilities
+    -- })
     vim.lsp.config('gopls', {
-        capabilities = capabilities
-    })
-    vim.lsp.config('gopls', {
-        on_attach = on_attach,
         capabilities = capabilities,
         cmd = {"gopls"},
         filetypes = { "go", "gomod", "gowork", "gotmpl" },
-        root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+        --root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+        root_markers = {"go.work", "go.mod", ".git"},
         settings = {
             gopls = {
                 completeUnimported = true,

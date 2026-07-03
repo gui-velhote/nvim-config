@@ -12,7 +12,7 @@ require('mason-lspconfig').setup({
       'lua_ls',
       'jdtls',
       'bashls',
-      'vue_ls'
-      -- 'gopls',
+      'vue_ls',
+      'gopls'
   },
 })
